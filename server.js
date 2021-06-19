@@ -33,7 +33,7 @@ var survey = new Schema({
    income: String,
    savings: String,
    short_term_invest: String,
-   invest: String,
+   invest: Array,
    trust: String,
    delay: String,
    return: String,
