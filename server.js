@@ -64,7 +64,9 @@ app.use(express.json());
 var Project = mongoose.model('Project',survey);
 var CallBack = mongoose.model('CallBack',callBack);
 
-
+app.get('/',(req,res)=>{
+  res.json("working");
+})
 app.post('/',(req,res)=>{
   new CallBack({
     name:req.body.name,
