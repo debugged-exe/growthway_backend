@@ -66,6 +66,13 @@ var blogs = new Schema({
   collection: 'Blogs'
 });
 
+var faqs = new Schema({
+   ques: String,
+   answer: String
+},{
+  collection: 'Faqs'
+});
+
 app.use(express.static('public'));
 app.use(cors());
 app.use(express.json());
@@ -74,6 +81,7 @@ app.use(express.json());
 var Project = mongoose.model('Project',survey);
 var CallBack = mongoose.model('CallBack',callBack);
 var BlogSection = mongoose.model('BlogSection',blogs);
+var Faqs = mongoose.model('Faqs',faqs);
 
 app.get('/',(req,res)=>{
   res.json("working");
@@ -94,7 +102,6 @@ app.post('/',(req,res)=>{
     }
   })
 })
-
 
 app.post('/surveyform',(req,res)=>{
   new Project({
@@ -135,6 +142,20 @@ app.get('/blog',(req,res)=>{
     (err,doc)=>{
     if(err){
       console.log("No blogs yet");
+      res.json(err)
+    }
+    else{
+      res.json(doc);
+      console.log(doc);
+    }
+  })
+})
+
+app.get('/about',(req,res)=>{
+  Faqs.find(
+    (err,doc)=>{
+    if(err){
+      console.log("received error");
       res.json(err)
     }
     else{
