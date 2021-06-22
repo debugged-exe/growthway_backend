@@ -56,6 +56,16 @@ var callBack = new Schema({
 });
 
 
+var blogs = new Schema({
+   date: String,
+   heading: String,
+   description: String,
+   img:String,
+   display:String
+},{
+  collection: 'Blogs'
+});
+
 app.use(express.static('public'));
 app.use(cors());
 app.use(express.json());
@@ -63,10 +73,12 @@ app.use(express.json());
 
 var Project = mongoose.model('Project',survey);
 var CallBack = mongoose.model('CallBack',callBack);
+var BlogSection = mongoose.model('BlogSection',blogs);
 
 app.get('/',(req,res)=>{
   res.json("working");
 })
+
 app.post('/',(req,res)=>{
   new CallBack({
     name:req.body.name,
@@ -114,6 +126,20 @@ app.post('/surveyform',(req,res)=>{
     }
     else{
       res.json("Success");
+    }
+  })
+})
+
+app.get('/blog',(req,res)=>{
+  BlogSection.find(
+    (err,doc)=>{
+    if(err){
+      console.log("No blogs yet");
+      res.json(err)
+    }
+    else{
+      res.json(doc);
+      console.log(doc);
     }
   })
 })
