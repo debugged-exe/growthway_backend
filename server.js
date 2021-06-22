@@ -68,7 +68,8 @@ var blogs = new Schema({
 
 var faqs = new Schema({
    ques: String,
-   answer: String
+   answer: String,
+   open:Boolean
 },{
   collection: 'Faqs'
 });
