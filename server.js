@@ -94,9 +94,6 @@ var BlogSection = mongoose.model('BlogSection',blogs);
 var Faqs = mongoose.model('Faqs',faqs);
 var Clients = mongoose.model('Clients',clients);
 
-app.get('/',(req,res)=>{
-  res.json("working");
-})
 
 app.post('/',(req,res)=>{
   new CallBack({
@@ -204,7 +201,6 @@ app.get('/',(req,res)=>{
       res.json(err)
     }
     else{
-      console.log("clients");
       res.json(doc);
     }
   })
