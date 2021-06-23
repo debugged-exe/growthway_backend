@@ -68,7 +68,7 @@ var blogs = new Schema({
 
 var faqs = new Schema({
    ques: String,
-   answer: String,
+   answer:String,
    open:Boolean
 },{
   collection: 'Faqs'
@@ -164,4 +164,21 @@ app.get('/about',(req,res)=>{
       console.log(doc);
     }
   })
+})
+
+app.post('/about',(req,res)=>{
+  new Faqs ({
+    ques: req.body.ques,
+    answer:req.body.answer,
+    open:req.body.open
+  })
+  .save((err,doc)=>{
+    if(err){
+      res.json(err)
+    }
+    else{
+      res.json("Success");
+    }
+  })
+
 })
