@@ -66,6 +66,15 @@ var blogs = new Schema({
   collection: 'Blogs'
 });
 
+var clients = new Schema({
+   describe:String,
+   name:String,
+   designation:String,
+   icon:String
+},{
+  collection: 'Testimonials'
+});
+
 var faqs = new Schema({
    ques: String,
    answer:String,
@@ -83,6 +92,7 @@ var Project = mongoose.model('Project',survey);
 var CallBack = mongoose.model('CallBack',callBack);
 var BlogSection = mongoose.model('BlogSection',blogs);
 var Faqs = mongoose.model('Faqs',faqs);
+var Clients = mongoose.model('Clients',clients);
 
 app.get('/',(req,res)=>{
   res.json("working");
@@ -181,6 +191,20 @@ app.get('/about',(req,res)=>{
         doc.splice(index);
        }
      })
+      res.json(doc);
+    }
+  })
+})
+
+
+app.get('/',(req,res)=>{
+  Clients.find(
+    (err,doc)=>{
+    if(err){
+      res.json(err)
+    }
+    else{
+      console.log("clients");
       res.json(doc);
     }
   })
