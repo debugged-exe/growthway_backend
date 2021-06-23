@@ -178,10 +178,9 @@ app.get('/about',(req,res)=>{
     else{
      doc.map((i,index)=>{
        if(i.answer===''){
-          delete doc[index];
+        doc.splice(index,1);
        }
      })
-     console.log("doc after deleting",doc);
       res.json(doc);
     }
   })
