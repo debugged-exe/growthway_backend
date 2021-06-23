@@ -169,16 +169,16 @@ app.post('/about',(req,res)=>{
   })
 })
 
-// app.get('/about',(req,res)=>{
-//   Faqs.find(
-//     (err,doc)=>{
-//     if(err){
-//       console.log("received error");
-//       res.json(err)
-//     }
-//     else{
-//       res.json(doc);
-//       console.log(doc);
-//     }
-//   })
-// })
+app.get('/about',(req,res)=>{
+  Faqs.find(
+    (err,doc)=>{
+    if(err){
+      console.log("received error");
+      res.json(err)
+    }
+    else{
+      res.json(doc);
+      console.log(doc);
+    }
+  })
+})
