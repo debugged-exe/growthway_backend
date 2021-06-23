@@ -163,7 +163,6 @@ app.post('/about',(req,res)=>{
       res.json(err)
     }
     else{
-      console.log(doc);
       res.json("Success");
     }
   })
@@ -177,10 +176,6 @@ app.get('/about',(req,res)=>{
       res.json(err)
     }
     else{
-      doc.filter(items=> items.answer==='')
-      .map((item,index)=>{
-        delete doc[index];
-      })
       res.json(doc);
       console.log(doc);
     }
