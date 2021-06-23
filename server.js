@@ -176,8 +176,13 @@ app.get('/about',(req,res)=>{
       res.json(err)
     }
     else{
+     doc.map((i,index)=>{
+       if(i.answer===''){
+          delete doc[index];
+       }
+     })
+     console.log("doc after deleting",doc);
       res.json(doc);
-      console.log(doc);
     }
   })
 })
