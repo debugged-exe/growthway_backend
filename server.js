@@ -178,7 +178,7 @@ app.get('/about',(req,res)=>{
     else{
      doc.map((i,index)=>{
        if(i.answer===''){
-        doc.splice(index,1);
+        doc.splice(index);
        }
      })
       res.json(doc);
