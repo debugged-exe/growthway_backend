@@ -152,20 +152,6 @@ app.get('/blog',(req,res)=>{
   })
 })
 
-app.get('/about',(req,res)=>{
-  Faqs.find(
-    (err,doc)=>{
-    if(err){
-      console.log("received error");
-      res.json(err)
-    }
-    else{
-      res.json(doc);
-      console.log(doc);
-    }
-  })
-})
-
 app.post('/about',(req,res)=>{
   new Faqs ({
     ques: req.body.ques,
@@ -177,8 +163,22 @@ app.post('/about',(req,res)=>{
       res.json(err)
     }
     else{
+      console.log(doc);
       res.json("Success");
     }
   })
-
 })
+
+// app.get('/about',(req,res)=>{
+//   Faqs.find(
+//     (err,doc)=>{
+//     if(err){
+//       console.log("received error");
+//       res.json(err)
+//     }
+//     else{
+//       res.json(doc);
+//       console.log(doc);
+//     }
+//   })
+// })
