@@ -225,8 +225,7 @@ app.get('/',(req,res)=>{
 })
 
 app.post('/workwithus', fileUpload(), function(req, res) {
-  const sampleFile = req.files;
-  console.log(sampleFile);
+  const file = req.files;
   console.log(file[0].originalname)
       fs.writeFile(uploaddir + file[0].originalname, file[0].buffer, function(err) {})
       var filepath = path.join(uploaddir, file[0].originalname);
