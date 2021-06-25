@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require("mongoose");
 const multer = require('multer');
-upload = multer();
 var fs = require('fs');
 const path = require('path');
 var nodemailer = require('nodemailer');
@@ -20,6 +19,17 @@ const app = express();
 app.listen(process.env.PORT || 3000, () => {
   console.log("Server running on port 3000")
 });
+
+var storage = multer.diskStorage({
+      destination: function (req, file, cb) {
+      cb(null, 'public')
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + '-' +file.originalname )
+    }
+})
+
+var upload = multer({ storage: storage }).array('file')
 
 const DB='mongodb+srv://growthway:growthway@cluster0.94k2t.mongodb.net/GrowthwayProject?retryWrites=true&w=majority'
 mongoose.connect(DB,{
@@ -224,38 +234,21 @@ app.get('/',(req,res)=>{
   })
 })
 
-app.post('/workwithus', fileUpload(), function(req, res) {
-  const sampleFile = req.files;
-  console.log(sampleFile);
+app.post('/workwithus',function(req, res) {
 
-        if(sampleFile!==null)
-        	{
-        			  var mailOptions = {
-      			from: 'harshikasmishra@gmail.com',
-      			to: 'suhanismishra@gmail.com',
-      			subject: 'New Contact Entry',
-            text: 'Hello',
-            attachments: [{
-             filename: sampleFile,
-           }]
-             };
+  upload(req, res, function (err) {
 
-        			  transporter.sendMail(mailOptions, function(error, info){
-        				if (error) {
-        				  console.log(error);
-        				} else {
-        				  console.log('Email sent: ' + info.response);
-        				}
-        			  });
+        if (err instanceof multer.MulterError) {
+            return res.status(500).json(err)
+          // A Multer error occurred when uploading.
+        } else if (err) {
+            return res.status(500).json(err)
+          // An unknown error occurred when uploading.
+        }
 
-        			  res.status(200).json("Success");
-        			// }
-        		//   })
-        	}
-        	else
-        	{
-        		res.status(400).json("Error")
-        	}
+        return res.status(200).send(req.file)
+        // Everything went fine.
+      })
 })
 
 // app.post('/workwithus',upload.any(), (req,res) => {
