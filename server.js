@@ -20,7 +20,16 @@ app.listen(process.env.PORT || 3000, () => {
   console.log("Server running on port 3000")
 });
 
-var upload = multer({ dest: 'uploads/' });
+var storage = multer.diskStorage({
+  destination: function(req, file, cb){
+    cb(null, 'uploads/')
+  },
+  filename: function(req, file, cb){
+    cb(null, Date.now()+file.originalname)
+  }
+})
+
+var upload = multer({storage: storage});
 
 const DB='mongodb+srv://growthway:growthway@cluster0.94k2t.mongodb.net/GrowthwayProject?retryWrites=true&w=majority'
 mongoose.connect(DB,{
@@ -225,21 +234,9 @@ app.get('/',(req,res)=>{
   })
 })
 
-app.post('/workwithus',function(req, res) {
-
-  upload(req, res, function (err) {
-
-        if (err instanceof multer.MulterError) {
-            return res.status(500).json(err)
-          // A Multer error occurred when uploading.
-        } else if (err) {
-            return res.status(500).json(err)
-          // An unknown error occurred when uploading.
-        }
-
-        return res.status(200).send(req.file)
-        // Everything went fine.
-      })
+app.post('/workwithus',upload.single('file'), function(req, res) {
+  var fileInfo = req.file;
+  res.send(fileInfo);
 })
 
 // app.post('/workwithus',upload.any(), (req,res) => {
