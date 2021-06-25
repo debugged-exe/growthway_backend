@@ -1,11 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require("mongoose");
-const multer = require('multer');
-var fs = require('fs');
-const path = require('path');
+// const multer = require('multer');
+// var fs = require('fs');
+// const path = require('path');
 var nodemailer = require('nodemailer');
-const fileUpload = require('express-fileupload');
+
 
 
 directory = path.dirname("");
@@ -113,22 +113,7 @@ var BlogSection = mongoose.model('BlogSection',blogs);
 var Faqs = mongoose.model('Faqs',faqs);
 var Clients = mongoose.model('Clients',clients);
 
-var storage = multer.diskStorage({
-  destination: function(req, file, cb){
-    cb(null, '/')
-  },
-  filename: function(req, file, cb){
-    cb(null, Date.now()+file.originalname)
-  }
-})
 
-var upload = multer({storage: storage});
-
-app.post('/workwithus',upload.single('file'), function(req, res) {
-  var fileInfo = req.file;
-  console.log(fileInfo)
-  res.send(fileInfo);
-})
 
 app.post('/',(req,res)=>{
   new CallBack({
@@ -239,45 +224,3 @@ app.get('/',(req,res)=>{
     }
   })
 })
-
-// app.post('/workwithus',upload.any(), (req,res) => {
-//
-// 	const query = req.body;
-//
-// 	const {name, email,phone_number,role,job} = query;
-//     var file = req.files
-//     console.log(file[0].originalname)
-//     fs.writeFile(uploaddir + file[0].originalname, file[0].buffer, function(err) {})
-//     var filepath = path.join(uploaddir, file[0].originalname);
-//     console.log(filepath)
-//
-// 	if(query!==null)
-// 	{
-// 			  var mailOptions = {
-// 				from: 'harshikasmishra@gmail.com',
-// 				to: 'suhanismishra@gmail.com',
-// 				subject: 'New Contact Entry',
-//         text: 'Name: '+req.body.name+'\nEmail: '+req.body.email+'\nPhone_number: '+req.body.phone_number+'\nFor position of :'+req.body.role+'\nJob :'+req.body.job,
-//         attachments: [{
-//          filename: file[0].originalname,
-//          streamSource: fs.createReadStream(filepath)
-//        }]
-//      };
-//
-// 			  transporter.sendMail(mailOptions, function(error, info){
-// 				if (error) {
-// 				  console.log(error);
-// 				} else {
-// 				  console.log('Email sent: ' + info.response);
-// 				}
-// 			  });
-//
-// 			  res.status(200).json("Success");
-// 			// }
-// 		//   })
-// 	}
-// 	else
-// 	{
-// 		res.status(400).json("Error")
-// 	}
-// })
