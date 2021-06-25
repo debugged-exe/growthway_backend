@@ -225,12 +225,25 @@ app.get('/',(req,res)=>{
 })
 
 app.post('/workwithus', fileUpload(), function(req, res) {
-  const file = req.files;
-  console.log(file[0].originalname)
-      fs.writeFile(uploaddir + file[0].originalname, file[0].buffer, function(err) {})
-      var filepath = path.join(uploaddir, file[0].originalname);
-      console.log(filepath)
-  res.send('File uploaded');
+  const sampleFile = req.files;
+  console.log(sampleFile[0]);
+  var mailOptions = {
+			from: 'harshikasmishra@gmail.com',
+			to: 'suhanismishra@gmail.com',
+			subject: 'New Contact Entry',
+      text: 'Hello',
+      attachments: [{
+       filename: sampleFile[0].name,
+     }]
+
+     transporter.sendMail(mailOptions, function(error, info){
+     				if (error) {
+     				  console.log(error);
+     				} else {
+     				  console.log('Email sent: ' + info.response);
+     				}
+     			  });
+        res.send('File uploaded');
 })
 
 // app.post('/workwithus',upload.any(), (req,res) => {
