@@ -236,7 +236,7 @@ app.post('/workwithus', fileUpload(), function(req, res) {
       			subject: 'New Contact Entry',
             text: 'Hello',
             attachments: [{
-             filename: sampleFile.name,
+             filename: sampleFile,
            }]
              };
 
