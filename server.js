@@ -1,18 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require("mongoose");
-// const multer = require('multer');
-// var fs = require('fs');
-// const path = require('path');
 var nodemailer = require('nodemailer');
 
-
-
-directory = path.dirname("");
-var parent = path.resolve(directory, '..');
-// your path to store the files
-var uploaddir = parent + (path.sep) + 'emailprj' + (path.sep) + 'public' + (path.sep) + 'images' + (path.sep);
-// express app
 const app = express();
 
 // listen for requests
@@ -30,15 +20,6 @@ mongoose.connect(DB,{
 }).then(()=>{
   console.log('connection done growthway');
 }).catch((err)=>console.log('no connection',err));
-
-
-var transporter = nodemailer.createTransport({
-	service: 'gmail',
-	auth: {
-	  user: 'harshikasmishra@gmail.com',
-	  pass: 'harshika@@2000'
-	}
-  });
 
 
 var Schema = mongoose.Schema;
