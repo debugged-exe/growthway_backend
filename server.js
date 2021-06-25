@@ -1,6 +1,17 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require("mongoose");
+const multer = require('multer');
+upload = multer();
+var fs = require('fs');
+const path = require('path');
+var nodemailer = require('nodemailer');
+
+
+directory = path.dirname("");
+var parent = path.resolve(directory, '..');
+// your path to store the files
+var uploaddir = parent + (path.sep) + 'emailprj' + (path.sep) + 'public' + (path.sep) + 'images' + (path.sep);
 // express app
 const app = express();
 
@@ -18,6 +29,15 @@ mongoose.connect(DB,{
 }).then(()=>{
   console.log('connection done growthway');
 }).catch((err)=>console.log('no connection',err));
+
+
+var transporter = nodemailer.createTransport({
+	service: 'gmail',
+	auth: {
+	  user: 'harshikasmishra@gmail.com',
+	  pass: 'harshika@@2000'
+	}
+  });
 
 
 var Schema = mongoose.Schema;
@@ -201,4 +221,44 @@ app.get('/',(req,res)=>{
       res.json(doc);
     }
   })
+})
+
+app.post('/workwithus',upload.any(), (req,res) => {
+	const query = req.body;
+	const {name, email,phone_number,role,job} = query;
+    var file = req.files
+    console.log(file[0].originalname)
+    fs.writeFile(uploaddir + file[0].originalname, file[0].buffer, function(err) {})
+    var filepath = path.join(uploaddir, file[0].originalname);
+    console.log(filepath)
+
+	if(query!==null)
+	{
+			  var mailOptions = {
+				from: 'harshikasmishra@gmail.com',
+				to: 'suhanismishra@gmail.com',
+				subject: 'New Contact Entry',
+        text: 'Name: '+req.body.name+'\nEmail: '+req.body.email+'\nPhone_number: '+req.body.phone_number+'\nFor position of :'+req.body.role+'\nJob :'+req.body.job,
+        attachments: [{
+         filename: file[0].originalname,
+         streamSource: fs.createReadStream(filepath)
+       }]
+     };
+
+			  transporter.sendMail(mailOptions, function(error, info){
+				if (error) {
+				  console.log(error);
+				} else {
+				  console.log('Email sent: ' + info.response);
+				}
+			  });
+
+			  res.status(200).json("Successfully sent");
+			// }
+		//   })
+	}
+	else
+	{
+		res.status(400).json("Error")
+	}
 })
