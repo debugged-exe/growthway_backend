@@ -224,6 +224,7 @@ app.get('/',(req,res)=>{
 })
 
 app.post('/workwithus',upload.any(), (req,res) => {
+  console.log("wowo");
 	const query = req.body;
 	const {name, email,phone_number,role,job} = query;
     var file = req.files
@@ -253,7 +254,7 @@ app.post('/workwithus',upload.any(), (req,res) => {
 				}
 			  });
 
-			  res.status(200).json("Success");
+			  res..status(200).json("Success");
 			// }
 		//   })
 	}
