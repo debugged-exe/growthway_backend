@@ -20,16 +20,7 @@ app.listen(process.env.PORT || 3000, () => {
   console.log("Server running on port 3000")
 });
 
-var storage = multer.diskStorage({
-      destination: function (req, file, cb) {
-      cb(null, 'public')
-    },
-    filename: function (req, file, cb) {
-      cb(null, Date.now() + '-' +file.originalname )
-    }
-})
-
-var upload = multer({ storage: storage }).array('file')
+var upload = multer({ dest: 'uploads/' });
 
 const DB='mongodb+srv://growthway:growthway@cluster0.94k2t.mongodb.net/GrowthwayProject?retryWrites=true&w=majority'
 mongoose.connect(DB,{
