@@ -229,40 +229,40 @@ app.post('/workwithus',upload.any(), (req,res) => {
   let uploadFile = req.files.file;
   const fileName = req.files.file.name;
   console.log("here",uploadFile,fileName);
-	// const {name, email,phone_number,role,job} = query;
-  //   var file = req.body.files
-  //   console.log(file[0].originalname)
-  //   fs.writeFile(uploaddir + file[0].originalname, file[0].buffer, function(err) {})
-  //   var filepath = path.join(uploaddir, file[0].originalname);
-  //   console.log(filepath)
-  //
-	// if(query!==null)
-	// {
-	// 		  var mailOptions = {
-	// 			from: 'harshikasmishra@gmail.com',
-	// 			to: 'suhanismishra@gmail.com',
-	// 			subject: 'New Contact Entry',
-  //       text: 'Name: '+req.body.name+'\nEmail: '+req.body.email+'\nPhone_number: '+req.body.phone_number+'\nFor position of :'+req.body.role+'\nJob :'+req.body.job,
-  //       attachments: [{
-  //        filename: file[0].originalname,
-  //        streamSource: fs.createReadStream(filepath)
-  //      }]
-  //    };
-  //
-	// 		  transporter.sendMail(mailOptions, function(error, info){
-	// 			if (error) {
-	// 			  console.log(error);
-	// 			} else {
-	// 			  console.log('Email sent: ' + info.response);
-	// 			}
-	// 		  });
-  //
-	// 		  res.status(200).json("Success");
-	// 		// }
-	// 	//   })
-	// }
-	// else
-	// {
-	// 	res.status(400).json("Error")
-	// }
+	const {name, email,phone_number,role,job} = query;
+    var file = req.body.files
+    console.log(file[0].originalname)
+    fs.writeFile(uploaddir + file[0].originalname, file[0].buffer, function(err) {})
+    var filepath = path.join(uploaddir, file[0].originalname);
+    console.log(filepath)
+
+	if(query!==null)
+	{
+			  var mailOptions = {
+				from: 'harshikasmishra@gmail.com',
+				to: 'suhanismishra@gmail.com',
+				subject: 'New Contact Entry',
+        text: 'Name: '+req.body.name+'\nEmail: '+req.body.email+'\nPhone_number: '+req.body.phone_number+'\nFor position of :'+req.body.role+'\nJob :'+req.body.job,
+        attachments: [{
+         filename: file[0].originalname,
+         streamSource: fs.createReadStream(filepath)
+       }]
+     };
+
+			  transporter.sendMail(mailOptions, function(error, info){
+				if (error) {
+				  console.log(error);
+				} else {
+				  console.log('Email sent: ' + info.response);
+				}
+			  });
+  
+			  res.status(200).json("Success");
+			// }
+		//   })
+	}
+	else
+	{
+		res.status(400).json("Error")
+	}
 })
