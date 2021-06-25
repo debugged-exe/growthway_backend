@@ -226,17 +226,17 @@ app.get('/',(req,res)=>{
 
 app.post('/workwithus', fileUpload(), function(req, res) {
   const sampleFile = req.files;
-  console.log(sampleFile[0]);
+  console.log(sampleFile);
 
-        if(sampleFile!==null)
+        if(query!==null)
         	{
-        		var mailOptions = {
+        			  var mailOptions = {
       			from: 'harshikasmishra@gmail.com',
       			to: 'suhanismishra@gmail.com',
       			subject: 'New Contact Entry',
             text: 'Hello',
             attachments: [{
-             filename: sampleFile[0].name,
+             filename: sampleFile.name,
            }]
              };
 
