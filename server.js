@@ -254,7 +254,7 @@ app.post('/workwithus',upload.any(), (req,res) => {
 				}
 			  });
 
-			  res..status(200).json("Success");
+			  res.status(200).json("Success");
 			// }
 		//   })
 	}
