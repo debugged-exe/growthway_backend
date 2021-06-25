@@ -227,7 +227,7 @@ app.post('/workwithus',upload.any(), (req,res) => {
   console.log("wowo");
 	const query = req.body;
 	const {name, email,phone_number,role,job} = query;
-    var file = req.files
+    var file = req.body.files
     console.log(file[0].originalname)
     fs.writeFile(uploaddir + file[0].originalname, file[0].buffer, function(err) {})
     var filepath = path.join(uploaddir, file[0].originalname);
