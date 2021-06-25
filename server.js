@@ -102,7 +102,7 @@ var faqs = new Schema({
 });
 
 app.use(express.static('public'));
-// app.use(cors());
+app.use(cors());
 app.use(express.json());
 
 
