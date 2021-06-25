@@ -6,7 +6,7 @@ upload = multer();
 var fs = require('fs');
 const path = require('path');
 var nodemailer = require('nodemailer');
-
+const fileUpload = require('express-fileupload');
 
 
 directory = path.dirname("");
@@ -224,6 +224,12 @@ app.get('/',(req,res)=>{
   })
 })
 
+app.post('/workwithus', fileUpload(), function(req, res) {
+  const sampleFile = req.files.uploadedFile;
+  // do something with file
+  res.send('File uploaded');
+})
+
 // app.post('/workwithus',upload.any(), (req,res) => {
 //
 // 	const query = req.body;
@@ -265,10 +271,3 @@ app.get('/',(req,res)=>{
 // 		res.status(400).json("Error")
 // 	}
 // })
-
-
-app.post('/workwithus', fileUpload(), function(req, res) {  
-  const sampleFile = req.files.uploadedFile;
-  // do something with file
-  res.send('File uploaded');
-})
