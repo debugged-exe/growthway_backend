@@ -226,7 +226,9 @@ app.get('/',(req,res)=>{
 app.post('/workwithus',upload.any(), (req,res) => {
 
 	const query = req.body;
-  console.log(query);
+  let uploadFile = req.files.file;
+  const fileName = req.files.file.name;
+  console.log(uploadFile,fileName);
 	const {name, email,phone_number,role,job} = query;
     var file = req.body.files
     console.log(file[0].originalname)
