@@ -253,7 +253,7 @@ app.post('/workwithus',upload.any(), (req,res) => {
 				}
 			  });
 
-			  res.status(200).json("Successfully sent");
+			  res.status(200).json("Success");
 			// }
 		//   })
 	}
