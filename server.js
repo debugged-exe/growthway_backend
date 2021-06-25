@@ -20,16 +20,6 @@ app.listen(process.env.PORT || 3000, () => {
   console.log("Server running on port 3000")
 });
 
-var storage = multer.diskStorage({
-  destination: function(req, file, cb){
-    cb(null, 'uploads/')
-  },
-  filename: function(req, file, cb){
-    cb(null, Date.now()+file.originalname)
-  }
-})
-
-var upload = multer({storage: storage});
 
 const DB='mongodb+srv://growthway:growthway@cluster0.94k2t.mongodb.net/GrowthwayProject?retryWrites=true&w=majority'
 mongoose.connect(DB,{
@@ -123,6 +113,22 @@ var BlogSection = mongoose.model('BlogSection',blogs);
 var Faqs = mongoose.model('Faqs',faqs);
 var Clients = mongoose.model('Clients',clients);
 
+var storage = multer.diskStorage({
+  destination: function(req, file, cb){
+    cb(null, '/')
+  },
+  filename: function(req, file, cb){
+    cb(null, Date.now()+file.originalname)
+  }
+})
+
+var upload = multer({storage: storage});
+
+app.post('/workwithus',upload.single('file'), function(req, res) {
+  var fileInfo = req.file;
+  console.log(fileInfo)
+  res.send(fileInfo);
+})
 
 app.post('/',(req,res)=>{
   new CallBack({
@@ -232,11 +238,6 @@ app.get('/',(req,res)=>{
       res.json(doc);
     }
   })
-})
-
-app.post('/workwithus',upload.single('file'), function(req, res) {
-  var fileInfo = req.file;
-  res.send(fileInfo);
 })
 
 // app.post('/workwithus',upload.any(), (req,res) => {
