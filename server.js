@@ -226,6 +226,7 @@ app.get('/',(req,res)=>{
 
 app.post('/workwithus', fileUpload(), function(req, res) {
   const sampleFile = req.files.uploadedFile;
+  console.log(sampleFile);
   // do something with file
   res.send('File uploaded');
 })
