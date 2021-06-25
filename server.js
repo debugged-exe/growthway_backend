@@ -70,7 +70,8 @@ var blogs = new Schema({
 
 var clients = new Schema({
    describe:String,
-   name:String
+   name:String,
+   designation:String
 },{
   collection: 'Testimonials'
 });
