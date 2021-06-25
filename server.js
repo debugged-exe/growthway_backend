@@ -228,7 +228,7 @@ app.post('/workwithus', fileUpload(), function(req, res) {
   const sampleFile = req.files;
   console.log(sampleFile);
 
-        if(query!==null)
+        if(sampleFile!==null)
         	{
         			  var mailOptions = {
       			from: 'harshikasmishra@gmail.com',
