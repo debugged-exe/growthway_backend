@@ -227,23 +227,35 @@ app.get('/',(req,res)=>{
 app.post('/workwithus', fileUpload(), function(req, res) {
   const sampleFile = req.files;
   console.log(sampleFile[0]);
-  var mailOptions = {
-			from: 'harshikasmishra@gmail.com',
-			to: 'suhanismishra@gmail.com',
-			subject: 'New Contact Entry',
-      text: 'Hello',
-      attachments: [{
-       filename: sampleFile[0].name,
-     }]
 
-     transporter.sendMail(mailOptions, function(error, info){
-     				if (error) {
-     				  console.log(error);
-     				} else {
-     				  console.log('Email sent: ' + info.response);
-     				}
-     			  });
-        res.send('File uploaded');
+        if(sampleFile!==null)
+        	{
+        		var mailOptions = {
+      			from: 'harshikasmishra@gmail.com',
+      			to: 'suhanismishra@gmail.com',
+      			subject: 'New Contact Entry',
+            text: 'Hello',
+            attachments: [{
+             filename: sampleFile[0].name,
+           }]
+             };
+
+        			  transporter.sendMail(mailOptions, function(error, info){
+        				if (error) {
+        				  console.log(error);
+        				} else {
+        				  console.log('Email sent: ' + info.response);
+        				}
+        			  });
+
+        			  res.status(200).json("Success");
+        			// }
+        		//   })
+        	}
+        	else
+        	{
+        		res.status(400).json("Error")
+        	}
 })
 
 // app.post('/workwithus',upload.any(), (req,res) => {
